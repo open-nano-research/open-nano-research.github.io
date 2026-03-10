@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Nano Research Network (ONRN)</title>
+    <meta name="description" content="Accelerating nanotechnology breakthroughs through open collaboration, shared data, and community-driven research.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #06b6d4;
+            --accent-dark: #0891b2;
+            --text: #334155;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e2e8f0;
+            --gradient-start: #06b6d4;
+            --gradient-end: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(180deg); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 540px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .nano-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+        }
+
+        .nano-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+
+        .nano-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nano-card:nth-child(2) {
+            transform: translateY(20px);
+        }
+
+        .nano-card:nth-child(3) {
+            transform: translateY(40px);
+        }
+
+        .nano-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .nano-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nano-card p {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Status Banner */
+        .status-banner {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-banner::before {
+            content: '🚀';
+            margin-right: 0.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+        }
+
+        /* Pillars Section */
+        .pillars {
+            background: var(--bg-alt);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pillar-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .pillar-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Current Focus Section */
+        .focus-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .focus-visual {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 24px;
+            padding: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-visual::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .focus-visual h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .focus-visual p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .focus-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .focus-details h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .focus-details > p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-list i {
+            color: var(--accent);
+            font-size: 1.25rem;
+        }
+
+        /* Collaborate Section */
+        .collaborate {
+            background: var(--primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collaborate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .collaborate .section-header h2 {
+            color: white;
+        }
+
+        .collaborate .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .collaboration-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .collab-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .collab-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .collab-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-end));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .collab-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .collab-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .collab-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Updates Section */
+        .updates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .update-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .update-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .update-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-alt), var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+        }
+
+        .update-content {
+            padding: 1.5rem;
+        }
+
+        .update-date {
+            font-size: 0.875rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .update-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .nano-grid {
+                transform: none;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .focus-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">ONRN</div>
+                <span class="logo-text">Open Nano Research Network</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#pillars">Pillars</a></li>
+                <li><a href="#focus">Current Focus</a></li>
+                <li><a href="#collaborate">Collaborate</a></li>
+                <li><a href="#updates">Updates</a></li>
+            </ul>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Status Banner -->
+    <div class="status-banner" style="margin-top: 72px;">
+        Launching 2026 — Now recruiting founding collaborators
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">Open Science Initiative</div>
+                <h1>Open Nano Research Network</h1>
+                <p>Accelerating nanotechnology breakthroughs through open data, shared protocols, and community-driven collaboration. Building the future of nano research, together.</p>
+                <div class="hero-buttons">
+                    <a href="#collaborate" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Get Involved
+                    </a>
+                    <a href="#focus" class="btn btn-secondary">
+                        <i class="fas fa-flask"></i>
+                        Explore Research
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="nano-grid">
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Open Data</h3>
+                        <p>Shared datasets & standards</p>
+                    </div>
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3>Protocols</h3>
+                        <p>Validated methods</p>
+                    </div>
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Global collaboration</p>
+                    </div>
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>Tools</h3>
+                        <p>Open source software</p>
+                    </div>
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Training</h3>
+                        <p>Educational resources</p>
+                    </div>
+                    <div class="nano-card">
+                        <div class="nano-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Standards</h3>
+                        <p>Best practices</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Research Areas Section -->
+<section id="research-areas" class="research-areas">
+    <div class="container">
+        <div class="section-header">
+            <h2>Research Areas</h2>
+            <p>We focus on fundamental and applied nanoscience across these interconnected domains. Join working groups in your specialty or explore cross-disciplinary collaborations.</p>
+        </div>
+        
+        <div class="areas-grid">
+            <!-- Row 1 -->
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <h3>Nanomaterials & Low-Dimensional Systems</h3>
+                <p>2D materials, quantum dots, nanowires, and heterostructures</p>
+                <span class="area-status forming">Forming</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>Nanocomposites & Hybrid Materials</h3>
+                <p>Multifunctional composites, interface engineering, scalable synthesis</p>
+                <span class="area-status forming">Forming</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-magnet"></i>
+                </div>
+                <h3>Quantum Materials, Topology & Spintronics</h3>
+                <p>Topological insulators, spin transport, quantum phase phenomena</p>
+                <span class="area-status recruiting">Recruiting Lead</span>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>Nanoelectronics & Quantum Transport</h3>
+                <p>Single-electron devices, molecular electronics, quantum coherence</p>
+                <span class="area-status forming">Forming</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Nanophotonics & Optical Nanoscience</h3>
+                <p>Plasmonics, metamaterials, nano-optical characterization</p>
+                <span class="area-status active">Active</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                </div>
+                <h3>Nanomechanics</h3>
+                <p>Nanoindentation, AFM mechanics, flexible nanodevices</p>
+                <span class="area-status forming">Forming</span>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Energy Nanomaterials</h3>
+                <p>Batteries, photovoltaics, catalysis, energy storage</p>
+                <span class="area-status recruiting">Recruiting Lead</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Environmental Nanoscience & Nanotoxicology</h3>
+                <p>Green synthesis, fate/transport, safety assessment, regulation</p>
+                <span class="area-status forming">Forming</span>
+            </div>
+            
+            <div class="area-card">
+                <div class="area-icon">
+                    <i class="fas fa-dna"></i>
+                </div>
+                <h3>Bio-Nano Systems & Nanobiotechnology</h3>
+                <p>Drug delivery, biosensors, bio-nano interfaces, theranostics</p>
+                <span class="area-status recruiting">Recruiting Lead</span>
+            </div>
+            
+            <!-- Row 4 -->
+            <div class="area-card wide">
+                <div class="area-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Computational Methods in Nanoscience</h3>
+                <p>DFT, molecular dynamics, machine learning for materials discovery, multiscale modeling — spanning all domains</p>
+                <span class="area-status active">Active</span>
+            </div>
+        </div>
+        
+        <div class="areas-cta">
+            <p>Don't see your area? <a href="#collaborate">Propose a new working group →</a></p>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Add these styles to your CSS */
+    
+    .research-areas {
+        background: var(--bg);
+        padding: 6rem 2rem;
+    }
+    
+    .areas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .area-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .area-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    .area-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent);
+    }
+    
+    .area-card:hover::before {
+        transform: scaleX(1);
+    }
+    
+    .area-card.wide {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    @media (max-width: 968px) {
+        .area-card.wide {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+    
+    .area-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--accent-dark);
+        margin-bottom: 1rem;
+    }
+    
+    .area-card.wide .area-icon {
+        margin-bottom: 0;
+    }
+    
+    .area-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+    }
+    
+    .area-card p {
+        font-size: 0.9rem;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+    
+    .area-status {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .area-status.forming {
+        background: rgba(251, 191, 36, 0.1);
+        color: #d97706;
+        border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    
+    .area-status.recruiting {
+        background: rgba(6, 182, 212, 0.1);
+        color: var(--accent-dark);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+    
+    .area-status.active {
+        background: rgba(34, 197, 94, 0.1);
+        color: #16a34a;
+        border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    
+    .areas-cta {
+        text-align: center;
+        margin-top: 3rem;
+        color: var(--text-light);
+    }
+    
+    .areas-cta a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    
+    .areas-cta a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+    <!-- Add this section AFTER Research Areas, BEFORE Pillars -->
+
+<!-- Computational Methods Section -->
+<section id="methods" class="methods">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">Core Expertise</div>
+            <h2>Computational Methods</h2>
+            <p>We develop and apply state-of-the-art simulation techniques across quantum, atomistic, and mesoscopic scales. Our open-source tools and validated protocols enable reproducible nanoscale modeling.</p>
+        </div>
+        
+        <div class="methods-grid">
+            <!-- Quantum Scale -->
+            <div class="method-category">
+                <h3><i class="fas fa-atom"></i> Quantum Scale</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <span class="method-name">Density Functional Theory</span>
+                        <span class="method-tag">DFT</span>
+                        <p class="method-desc">Ground-state electronic structure, total energy calculations, geometry optimization</p>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">Time-Dependent DFT</span>
+                        <span class="method-tag">TD-DFT</span>
+                        <p class="method-desc">Excited states, optical properties, ultrafast dynamics</p>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">Density Functional Perturbation Theory</span>
+                        <span class="method-tag">DFPT</span>
+                        <p class="method-desc">Phonons, dielectric response, electron-phonon coupling</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Atomistic Scale -->
+            <div class="method-category">
+                <h3><i class="fas fa-cubes"></i> Atomistic Scale</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <span class="method-name">Molecular Dynamics</span>
+                        <span class="method-tag">MD</span>
+                        <p class="method-desc">Classical and ab initio MD, thermal transport, mechanical properties</p>
+                    </div>
+                    <div class="method-item">
+                        <span class="method-name">Tight-Binding Method</span>
+                        <span class="method-tag">TB</span>
+                        <p class="method-desc">Large-scale electronic structure, transport in nanostructures</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transport & Mesoscale -->
+            <div class="method-category">
+                <h3><i class="fas fa-project-diagram"></i> Transport & Mesoscale</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <span class="method-name">Nonequilibrium Green's Function</span>
+                        <span class="method-tag">NEGF</span>
+                        <p class="method-desc">Quantum transport, current-voltage characteristics, nanodevice simulation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="methods-cta">
+            <div class="code-stats">
+                <div class="stat">
+                    <span class="stat-num">0</span>
+                    <span class="stat-label">Open Source Tools</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">0</span>
+                    <span class="stat-label">Validated Workflows</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">0</span>
+                    <span class="stat-label">Contributors</span>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary">
+                <i class="fab fa-github"></i>
+                Explore Code Repository
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .methods {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: white;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .methods::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .methods .section-header h2 {
+        color: white;
+    }
+    
+    .methods .section-header p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .methods-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .method-category {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 2rem;
+    }
+    
+    .method-category h3 {
+        color: white;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .method-category h3 i {
+        color: var(--accent);
+    }
+    
+    .method-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+    
+    .method-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 1rem;
+        border-left: 3px solid var(--accent);
+    }
+    
+    .method-name {
+        display: block;
+        font-weight: 600;
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .method-tag {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.125rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: 'Space Grotesk', sans-serif;
+        margin-bottom: 0.5rem;
+    }
+    
+    .method-desc {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        margin: 0;
+    }
+    
+    .methods-cta {
+        margin-top: 4rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .code-stats {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 640px) {
+        .code-stats {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+    }
+    
+    .code-stats .stat {
+        text-align: center;
+    }
+    
+    .code-stats .stat-num {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent);
+        font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .code-stats .stat-label {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .methods-cta .btn-primary {
+        background: white;
+        color: var(--primary);
+    }
+    
+    .methods-cta .btn-primary:hover {
+        background: var(--accent);
+        color: white;
+    }
+</style>
+
+    <!-- About/Pillars Section -->
+    <section id="pillars" class="pillars">
+        <div class="container">
+            <div class="section-header">
+                <h2>Three Pillars of Open Nano</h2>
+                <p>We're building infrastructure to remove barriers and accelerate discovery in nanotechnology research.</p>
+            </div>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon">
+                        <i class="fas fa-unlock-alt"></i>
+                    </div>
+                    <h3>Open by Default</h3>
+                    <p>All research outputs, data, and protocols are openly licensed and immediately accessible. No paywalls, no embargoes, no exceptions.</p>
+                    <a href="#" class="pillar-link">
+                        View Data Policy <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Network Effects</h3>
+                    <p>Cross-institutional collaboration amplifies impact. Shared instruments, distributed expertise, and collective problem-solving.</p>
+                    <a href="#" class="pillar-link">
+                        See Collaborations <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Community Governance</h3>
+                    <p>Democratic decision-making with transparent processes. Researchers shape priorities, not administrators or publishers.</p>
+                    <a href="#" class="pillar-link">
+                        Read Governance Model <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Focus Section -->
+    <section id="focus" class="focus">
+        <div class="container">
+            <div class="section-header">
+                <h2>Current Focus</h2>
+                <p>Active initiatives we're building right now. Join us in shaping the future of open nano research.</p>
+            </div>
+            
+            <div class="focus-content">
+                <div class="focus-visual">
+                    <div class="project-status">
+                        <span class="status-dot"></span>
+                        Active Project
+                    </div>
+                    <h3>Nano Characterization Database</h3>
+                    <p>Building an open-access repository for standardized nanomaterial characterization data, including AFM, TEM, and spectroscopy datasets with full provenance tracking.</p>
+                    <div class="focus-stats">
+                        <div class="stat">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Datasets</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Contributors</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Institutions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="focus-details">
+                    <h3>Why This Matters</h3>
+                    <p>Nanotechnology suffers from irreproducibility due to inconsistent reporting and isolated data silos. We're fixing that.</p>
+                    
+                    <ul class="feature-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Standardized metadata schemas for all major characterization techniques</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Version-controlled protocols with community validation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Integration with existing repositories (Zenodo, Figshare, OSF)</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>API access for automated data harvesting</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-code-branch"></i>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborate Section -->
+    <section id="collaborate" class="collaborate">
+        <div class="container">
+            <div class="section-header">
+                <h2>Join the Network</h2>
+                <p>Whether you're a researcher, institution, or industry partner, there's a way to contribute to open nano science.</p>
+            </div>
+            
+            <div class="collaboration-options">
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Individual Researcher</h3>
+                    <p>Join working groups, contribute data, or help develop standards. Open to all career stages.</p>
+                    <a href="#" class="btn btn-primary">Apply Now</a>
+                </div>
+                
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Institution</h3>
+                    <p>Partner labs and universities committed to open science principles and data sharing.</p>
+                    <a href="#" class="btn btn-primary">Partner With Us</a>
+                </div>
+                
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Industry</h3>
+                    <p>Corporate partners supporting open innovation and pre-competitive research.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+                
+                <div class="collab-card">
+                    <div class="collab-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Funding</h3>
+                    <p>Support the infrastructure. Grants and donations keep data free and accessible.</p>
+                    <a href="#" class="btn btn-primary">Support ONRN</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Updates Section -->
+    <section id="updates" class="updates">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest Updates</h2>
+                <p>Progress reports, new resources, and community highlights.</p>
+            </div>
+            
+            <div class="updates-grid">
+                <article class="update-card">
+                    <div class="update-image">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-date">March 2024</div>
+                        <h3>Network Launch</h3>
+                        <p>Official launch of the Open Nano Research Network. We're starting with a focus on characterization data standards.</p>
+                        <a href="#" class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="update-card">
+                    <div class="update-image">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-date">Coming Soon</div>
+                        <h3>Data Standards Whitepaper</h3>
+                        <p>First draft of our nanomaterial characterization metadata standards open for community comment.</p>
+                        <a href="#" class="read-more">
+                            Preview <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                
+                <article class="update-card">
+                    <div class="update-image">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-date">Recruiting</div>
+                        <h3>Founding Collaborators</h3>
+                        <p>Seeking 5-10 founding research groups to help shape the network's first year priorities.</p>
+                        <a href="#" class="read-more">
+                            Apply <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon">O</div>
+                    <span class="logo-text">ONRN</span>
+                </a>
+                <p>Accelerating nanotechnology through open science. Building the future of research, together.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Network</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#pillars">Pillars</a></li>
+                    <li><a href="#focus">Research</a></li>
+                    <li><a href="#">Governance</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Data Standards</a></li>
+                    <li><a href="#">Protocols</a></li>
+                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Training</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#collaborate">Join</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Open Nano Research Network. Licensed under CC-BY 4.0.</p>
+            <p>Made with <i class="fas fa-heart" style="color: var(--accent);"></i> for open science</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.background = 'white';
+                navLinks.style.padding = '1rem 2rem';
+                navLinks.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                navLinks.style.borderTop = '1px solid var(--border)';
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.pillar-card, .collab-card, .update-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
