@@ -72,12 +72,13 @@
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0.75rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        /* ===== LOGO STYLES - External Image Version ===== */
         .logo {
             display: flex;
             align-items: center;
@@ -85,6 +86,39 @@
             text-decoration: none;
         }
 
+        /* Option 1: Logo Image Only (clean, modern) */
+        .logo-image {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Option 2: Logo Image + Text side by side */
+        .logo-image-with-text {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Option 3: Circular/rounded logo container */
+        .logo-container {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fallback CSS logo (original) */
         .logo-icon {
             width: 80px;
             height: 40px;
@@ -146,6 +180,65 @@
             font-size: 1.5rem;
             color: var(--primary);
             cursor: pointer;
+        }
+
+        /* ===== ANNOUNCEMENT BANNER - Alternative Content ===== */
+        .announcement-banner {
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            padding: 0.875rem 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .announcement-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .announcement-banner i {
+            font-size: 1rem;
+        }
+
+        .announcement-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .announcement-close {
+            position: absolute;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .announcement-close:hover {
+            opacity: 1;
         }
 
         /* Hero Section */
@@ -344,22 +437,6 @@
             color: var(--text-light);
         }
 
-        /* Status Banner */
-        .status-banner {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .status-banner::before {
-            content: '🚀';
-            margin-right: 0.5rem;
-        }
-
         /* Sections */
         section {
             padding: 6rem 2rem;
@@ -384,6 +461,140 @@
         .section-header p {
             font-size: 1.125rem;
             color: var(--text-light);
+        }
+
+        /* Research Areas Section */
+        .research-areas {
+            background: var(--bg);
+            padding: 6rem 2rem;
+        }
+        
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 968px) {
+            .areas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .area-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .area-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .area-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* ===== FIXED: Computational Methods card now same size as others ===== */
+        .area-card.wide {
+            /* Removed grid-column: 1 / -1; */
+            /* Now it behaves like all other cards */
+        }
+        
+        .area-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--accent-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .area-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .area-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .area-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .area-status.forming {
+            background: rgba(251, 191, 36, 0.1);
+            color: #d97706;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        
+        .area-status.recruiting {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-dark);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        
+        .area-status.active {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .areas-cta {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-light);
+        }
+        
+        .areas-cta a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .areas-cta a:hover {
+            text-decoration: underline;
         }
 
         /* Pillars Section */
@@ -884,12 +1095,41 @@
             margin-top: 2rem;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
 
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
+            <!-- ===== LOGO OPTIONS ===== -->
+            
+            <!-- Option 1: External Image Logo Only (Recommended for clean look) -->
+            <!-- Uncomment this and add your logo path:
+            <a href="#" class="logo">
+                <img src="images/onrn-logo.png" alt="ONRN" class="logo-image">
+            </a>
+            -->
+            
+            <!-- Option 2: Logo Image + Text -->
+            <!-- Uncomment this and add your logo path:
+            <a href="#" class="logo">
+                <img src="images/onrn-logo.png" alt="ONRN" class="logo-image-with-text">
+                <span class="logo-text">Open Nano Research Network</span>
+            </a>
+            -->
+            
+            <!-- Option 3: Logo in a styled container (for circular/square logos) -->
+            <!-- Uncomment this and add your logo path:
+            <a href="#" class="logo">
+                <div class="logo-container">
+                    <img src="images/onrn-logo.png" alt="ONRN">
+                </div>
+                <span class="logo-text">Open Nano Research Network</span>
+            </a>
+            -->
+            
+            <!-- Option 4: Current CSS-based logo (default) -->
             <a href="#" class="logo">
                 <div class="logo-icon">ONRN</div>
                 <span class="logo-text">Open Nano Research Network</span>
@@ -909,10 +1149,45 @@
         </div>
     </nav>
 
-    <!-- Status Banner -->
-    <div class="status-banner" style="margin-top: 72px;">
-        Launching 2026 — Now recruiting founding collaborators
+    <!-- ===== ANNOUNCEMENT BANNER - Alternative Options ===== -->
+    
+    <!-- Option 1: Call for Collaborators (Recommended) -->
+    <div class="announcement-banner" style="margin-top: 60px;">
+        <i class="fas fa-users"></i>
+        <span>Now recruiting founding collaborators — <a href="#collaborate">Join us</a></span>
     </div>
+    
+    <!-- Option 2: Data Standards Announcement -->
+    <!--
+    <div class="announcement-banner" style="margin-top: 60px;">
+        <i class="fas fa-database"></i>
+        <span>New data standards released — <a href="#">Read the whitepaper</a></span>
+    </div>
+    -->
+    
+    <!-- Option 3: Workshop/Event Announcement -->
+    <!--
+    <div class="announcement-banner" style="margin-top: 60px;">
+        <i class="fas fa-calendar"></i>
+        <span>Upcoming workshop: Open Data in Nanoscience — <a href="#">Register now</a></span>
+    </div>
+    -->
+    
+    <!-- Option 4: GitHub/Community Stats -->
+    <!--
+    <div class="announcement-banner" style="margin-top: 60px;">
+        <i class="fab fa-github"></i>
+        <span>Our tools are now open source — <a href="#">Explore on GitHub</a></span>
+    </div>
+    -->
+    
+    <!-- Option 5: Newsletter Signup -->
+    <!--
+    <div class="announcement-banner" style="margin-top: 60px;">
+        <i class="fas fa-envelope"></i>
+        <span>Stay updated — <a href="#">Subscribe to our newsletter</a></span>
+    </div>
+    -->
 
     <!-- Hero Section -->
     <section class="hero">
@@ -982,487 +1257,115 @@
         </div>
     </section>
 
-<!-- Research Areas Section -->
-<section id="research-areas" class="research-areas">
-    <div class="container">
-        <div class="section-header">
-            <h2>Research Areas</h2>
-            <p>We focus on fundamental and applied nanoscience across these interconnected domains. Join working groups in your specialty or explore cross-disciplinary collaborations.</p>
-        </div>
-        
-        <div class="areas-grid">
-            <!-- Row 1 -->
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-atom"></i>
-                </div>
-                <h3>Nanomaterials & Low-Dimensional Systems</h3>
-                <p>2D materials, quantum dots, nanowires, and heterostructures</p>
-                <span class="area-status forming">Forming</span>
+    <!-- Research Areas Section -->
+    <section id="research-areas" class="research-areas">
+        <div class="container">
+            <div class="section-header">
+                <h2>Research Areas</h2>
+                <p>We focus on fundamental and applied nanoscience across these interconnected domains. Join working groups in your specialty or explore cross-disciplinary collaborations.</p>
             </div>
             
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-layer-group"></i>
-                </div>
-                <h3>Nanocomposites & Hybrid Materials</h3>
-                <p>Multifunctional composites, interface engineering, scalable synthesis</p>
-                <span class="area-status forming">Forming</span>
-            </div>
-            
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-magnet"></i>
-                </div>
-                <h3>Quantum Materials, Topology & Spintronics</h3>
-                <p>Topological insulators, spin transport, quantum phase phenomena</p>
-                <span class="area-status recruiting">Recruiting Lead</span>
-            </div>
-            
-            <!-- Row 2 -->
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <h3>Nanoelectronics & Quantum Transport</h3>
-                <p>Single-electron devices, molecular electronics, quantum coherence</p>
-                <span class="area-status forming">Forming</span>
-            </div>
-            
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-                <h3>Nanophotonics & Optical Nanoscience</h3>
-                <p>Plasmonics, metamaterials, nano-optical characterization</p>
-                <span class="area-status active">Active</span>
-            </div>
-            
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-compress-arrows-alt"></i>
-                </div>
-                <h3>Nanomechanics</h3>
-                <p>Nanoindentation, AFM mechanics, flexible nanodevices</p>
-                <span class="area-status forming">Forming</span>
-            </div>
-            
-            <!-- Row 3 -->
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h3>Energy Nanomaterials</h3>
-                <p>Batteries, photovoltaics, catalysis, energy storage</p>
-                <span class="area-status recruiting">Recruiting Lead</span>
-            </div>
-            
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <h3>Environmental Nanoscience & Nanotoxicology</h3>
-                <p>Green synthesis, fate/transport, safety assessment, regulation</p>
-                <span class="area-status forming">Forming</span>
-            </div>
-            
-            <div class="area-card">
-                <div class="area-icon">
-                    <i class="fas fa-dna"></i>
-                </div>
-                <h3>Bio-Nano Systems & Nanobiotechnology</h3>
-                <p>Drug delivery, biosensors, bio-nano interfaces, theranostics</p>
-                <span class="area-status recruiting">Recruiting Lead</span>
-            </div>
-            
-            <!-- Row 4 -->
-            <div class="area-card wide">
-                <div class="area-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <h3>Computational Methods in Nanoscience</h3>
-                <p>DFT, molecular dynamics, machine learning for materials discovery, multiscale modeling — spanning all domains</p>
-                <span class="area-status active">Active</span>
-            </div>
-        </div>
-        
-        <div class="areas-cta">
-            <p>Don't see your area? <a href="#collaborate">Propose a new working group →</a></p>
-        </div>
-    </div>
-</section>
-
-<style>
-    /* Add these styles to your CSS */
-    
-    .research-areas {
-        background: var(--bg);
-        padding: 6rem 2rem;
-    }
-    
-    .areas-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .area-card {
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .area-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-    
-    .area-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-        border-color: var(--accent);
-    }
-    
-    .area-card:hover::before {
-        transform: scaleX(1);
-    }
-    
-    .area-card.wide {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    @media (max-width: 968px) {
-        .area-card.wide {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-    }
-    
-    .area-icon {
-        width: 48px;
-        height: 48px;
-        background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.1));
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        color: var(--accent-dark);
-        margin-bottom: 1rem;
-    }
-    
-    .area-card.wide .area-icon {
-        margin-bottom: 0;
-    }
-    
-    .area-card h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
-        color: var(--primary);
-    }
-    
-    .area-card p {
-        font-size: 0.9rem;
-        color: var(--text-light);
-        margin-bottom: 1rem;
-        line-height: 1.5;
-    }
-    
-    .area-status {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .area-status.forming {
-        background: rgba(251, 191, 36, 0.1);
-        color: #d97706;
-        border: 1px solid rgba(251, 191, 36, 0.2);
-    }
-    
-    .area-status.recruiting {
-        background: rgba(6, 182, 212, 0.1);
-        color: var(--accent-dark);
-        border: 1px solid rgba(6, 182, 212, 0.2);
-    }
-    
-    .area-status.active {
-        background: rgba(34, 197, 94, 0.1);
-        color: #16a34a;
-        border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-    
-    .areas-cta {
-        text-align: center;
-        margin-top: 3rem;
-        color: var(--text-light);
-    }
-    
-    .areas-cta a {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 600;
-    }
-    
-    .areas-cta a:hover {
-        text-decoration: underline;
-    }
-</style>
-
-    <!-- Add this section AFTER Research Areas, BEFORE Pillars -->
-
-<!-- Computational Methods Section -->
-<section id="methods" class="methods">
-    <div class="container">
-        <div class="section-header">
-            <div class="badge">Core Expertise</div>
-            <h2>Computational Methods</h2>
-            <p>We develop and apply state-of-the-art simulation techniques across quantum, atomistic, and mesoscopic scales. Our open-source tools and validated protocols enable reproducible nanoscale modeling.</p>
-        </div>
-        
-        <div class="methods-grid">
-            <!-- Quantum Scale -->
-            <div class="method-category">
-                <h3><i class="fas fa-atom"></i> Quantum Scale</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <span class="method-name">Density Functional Theory</span>
-                        <span class="method-tag">DFT</span>
-                        <p class="method-desc">Ground-state electronic structure, total energy calculations, geometry optimization</p>
+            <div class="areas-grid">
+                <!-- Row 1 -->
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-atom"></i>
                     </div>
-                    <div class="method-item">
-                        <span class="method-name">Time-Dependent DFT</span>
-                        <span class="method-tag">TD-DFT</span>
-                        <p class="method-desc">Excited states, optical properties, ultrafast dynamics</p>
+                    <h3>Nanomaterials & Low-Dimensional Systems</h3>
+                    <p>2D materials, quantum dots, nanowires, and heterostructures</p>
+                    <span class="area-status forming">Forming</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-layer-group"></i>
                     </div>
-                    <div class="method-item">
-                        <span class="method-name">Density Functional Perturbation Theory</span>
-                        <span class="method-tag">DFPT</span>
-                        <p class="method-desc">Phonons, dielectric response, electron-phonon coupling</p>
+                    <h3>Nanocomposites & Hybrid Materials</h3>
+                    <p>Multifunctional composites, interface engineering, scalable synthesis</p>
+                    <span class="area-status forming">Forming</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-magnet"></i>
                     </div>
+                    <h3>Quantum Materials, Topology & Spintronics</h3>
+                    <p>Topological insulators, spin transport, quantum phase phenomena</p>
+                    <span class="area-status recruiting">Recruiting Lead</span>
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Nanoelectronics & Quantum Transport</h3>
+                    <p>Single-electron devices, molecular electronics, quantum coherence</p>
+                    <span class="area-status forming">Forming</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Nanophotonics & Optical Nanoscience</h3>
+                    <p>Plasmonics, metamaterials, nano-optical characterization</p>
+                    <span class="area-status active">Active</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </div>
+                    <h3>Nanomechanics</h3>
+                    <p>Nanoindentation, AFM mechanics, flexible nanodevices</p>
+                    <span class="area-status forming">Forming</span>
+                </div>
+                
+                <!-- Row 3 -->
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Energy Nanomaterials</h3>
+                    <p>Batteries, photovoltaics, catalysis, energy storage</p>
+                    <span class="area-status recruiting">Recruiting Lead</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Environmental Nanoscience & Nanotoxicology</h3>
+                    <p>Green synthesis, fate/transport, safety assessment, regulation</p>
+                    <span class="area-status forming">Forming</span>
+                </div>
+                
+                <div class="area-card">
+                    <div class="area-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>Bio-Nano Systems & Nanobiotechnology</h3>
+                    <p>Drug delivery, biosensors, bio-nano interfaces, theranostics</p>
+                    <span class="area-status recruiting">Recruiting Lead</span>
+                </div>
+                
+                <!-- Row 4 - FIXED: Now same size as other cards -->
+                <div class="area-card wide">
+                    <div class="area-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Computational Methods in Nanoscience</h3>
+                    <p>DFT, molecular dynamics, machine learning for materials discovery, multiscale modeling</p>
+                    <span class="area-status active">Active</span>
                 </div>
             </div>
             
-            <!-- Atomistic Scale -->
-            <div class="method-category">
-                <h3><i class="fas fa-cubes"></i> Atomistic Scale</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <span class="method-name">Molecular Dynamics</span>
-                        <span class="method-tag">MD</span>
-                        <p class="method-desc">Classical and ab initio MD, thermal transport, mechanical properties</p>
-                    </div>
-                    <div class="method-item">
-                        <span class="method-name">Tight-Binding Method</span>
-                        <span class="method-tag">TB</span>
-                        <p class="method-desc">Large-scale electronic structure, transport in nanostructures</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Transport & Mesoscale -->
-            <div class="method-category">
-                <h3><i class="fas fa-project-diagram"></i> Transport & Mesoscale</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <span class="method-name">Nonequilibrium Green's Function</span>
-                        <span class="method-tag">NEGF</span>
-                        <p class="method-desc">Quantum transport, current-voltage characteristics, nanodevice simulation</p>
-                    </div>
-                </div>
+            <div class="areas-cta">
+                <p>Don't see your area? <a href="#collaborate">Propose a new working group →</a></p>
             </div>
         </div>
-        
-        <div class="methods-cta">
-            <div class="code-stats">
-                <div class="stat">
-                    <span class="stat-num">0</span>
-                    <span class="stat-label">Open Source Tools</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">0</span>
-                    <span class="stat-label">Validated Workflows</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">0</span>
-                    <span class="stat-label">Contributors</span>
-                </div>
-            </div>
-            <a href="#" class="btn btn-primary">
-                <i class="fab fa-github"></i>
-                Explore Code Repository
-            </a>
-        </div>
-    </div>
-</section>
-
-<style>
-    .methods {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-        color: white;
-        padding: 6rem 2rem;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .methods::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    
-    .methods .section-header h2 {
-        color: white;
-    }
-    
-    .methods .section-header p {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .methods-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .method-category {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 2rem;
-    }
-    
-    .method-category h3 {
-        color: white;
-        font-size: 1.25rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-    
-    .method-category h3 i {
-        color: var(--accent);
-    }
-    
-    .method-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-    
-    .method-item {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        padding: 1rem;
-        border-left: 3px solid var(--accent);
-    }
-    
-    .method-name {
-        display: block;
-        font-weight: 600;
-        color: white;
-        font-size: 1rem;
-        margin-bottom: 0.25rem;
-    }
-    
-    .method-tag {
-        display: inline-block;
-        background: var(--accent);
-        color: white;
-        padding: 0.125rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        font-family: 'Space Grotesk', sans-serif;
-        margin-bottom: 0.5rem;
-    }
-    
-    .method-desc {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.5;
-        margin: 0;
-    }
-    
-    .methods-cta {
-        margin-top: 4rem;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .code-stats {
-        display: flex;
-        justify-content: center;
-        gap: 4rem;
-        margin-bottom: 2rem;
-    }
-    
-    @media (max-width: 640px) {
-        .code-stats {
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-    }
-    
-    .code-stats .stat {
-        text-align: center;
-    }
-    
-    .code-stats .stat-num {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--accent);
-        font-family: 'Space Grotesk', sans-serif;
-    }
-    
-    .code-stats .stat-label {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.7);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .methods-cta .btn-primary {
-        background: white;
-        color: var(--primary);
-    }
-    
-    .methods-cta .btn-primary:hover {
-        background: var(--accent);
-        color: white;
-    }
-</style>
+    </section>
 
     <!-- About/Pillars Section -->
     <section id="pillars" class="pillars">
@@ -1788,10 +1691,10 @@
         }, observerOptions);
 
         // Observe all cards
-        document.querySelectorAll('.pillar-card, .collab-card, .update-card').forEach((el, index) => {
+        document.querySelectorAll('.pillar-card, .collab-card, .update-card, .area-card').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
-            el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            el.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
             observer.observe(el);
         });
     </script>
